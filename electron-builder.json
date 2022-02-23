@@ -1,0 +1,17 @@
+{
+	"productName": "ElectronReact",
+	"appId": "org.erb.ElectronReact",
+	"win": {
+		"target": ["nsis"]
+	},
+	"linux": {
+		"target": ["deb"],
+		"category": "Development"
+	},
+	"directories": {
+		"app": "release/app",
+		"buildResources": "assets",
+		"output": "release/build"
+	},
+	"extraResources": ["./assets/**"]
+}

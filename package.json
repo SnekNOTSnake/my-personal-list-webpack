@@ -1,0 +1,41 @@
+{
+	"name": "my-personal-list",
+	"description": "My personal anime tracking list",
+	"scripts": {
+		"start": "yarn run start:renderer",
+		"start:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./src/main/main.ts",
+		"start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.mpl/configs/webpack.config.renderer.dev.ts",
+		"prettier": "prettier --ignore-path .gitignore --write \"**/*.(css|js|json|ts|tsx)\""
+	},
+	"license": "MIT",
+	"homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+	"devDependencies": {
+		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
+		"@types/node": "^17.0.19",
+		"@types/react": "^17.0.39",
+		"@types/react-dom": "^17.0.11",
+		"@types/terser-webpack-plugin": "^5.2.0",
+		"@types/webpack-env": "^1.16.3",
+		"cross-env": "^7.0.3",
+		"css-minimizer-webpack-plugin": "^3.4.1",
+		"electron": "^17.0.1",
+		"electron-builder": "^22.14.13",
+		"html-webpack-plugin": "^5.5.0",
+		"mini-css-extract-plugin": "^2.5.3",
+		"react-refresh": "^0.11.0",
+		"react-refresh-typescript": "^2.0.3",
+		"rimraf": "^3.0.2",
+		"terser-webpack-plugin": "^5.3.1",
+		"ts-loader": "^9.2.6",
+		"ts-node": "^10.5.0",
+		"typescript": "^4.5.5",
+		"webpack": "^5.69.1",
+		"webpack-cli": "^4.9.2",
+		"webpack-dev-server": "^4.7.4",
+		"webpack-merge": "^5.8.0"
+	},
+	"dependencies": {
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"module": "CommonJS",
+		"target": "ES2021",
+		"lib": ["DOM", "ESNext"],
+		"jsx": "react",
+		"pretty": true,
+		"sourceMap": true,
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"allowJs": true,
+		"outDir": "release/app/dist"
+	},
+	"exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+}

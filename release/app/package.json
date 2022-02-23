@@ -1,0 +1,12 @@
+{
+	"name": "my-personal-list",
+	"description": "My personal anime tracking list",
+	"version": "1.0.0",
+	"main": "./dist/main/main.js",
+	"author": {
+		"name": "Akhmad Najmuddin",
+		"email": "udintobe@gmail.com",
+		"url": "https://github.com/electron-react-boilerplate"
+	},
+	"license": "MIT"
+}
