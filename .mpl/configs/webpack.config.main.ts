@@ -14,7 +14,7 @@ const mainConfig: Configuration = {
 	devtool: 'source-map',
 	entry: {
 		main: path.join(srcMainPath, 'main.ts'),
-		preload: path.join(srcMainPath, 'preload.ts'),
+		preload: path.join(srcMainPath, 'preload.js'),
 	},
 	output: {
 		path: distMainPath,

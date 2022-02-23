@@ -12,3 +12,5 @@ export const appPath = path.join(releasePath, 'app')
 export const distPath = path.join(appPath, 'dist')
 export const distMainPath = path.join(distPath, 'main')
 export const distRendererPath = path.join(distPath, 'renderer')
+
+export const buildPath = path.join(releasePath, 'build')

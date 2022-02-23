@@ -1,9 +1,6 @@
 {
 	"productName": "ElectronReact",
 	"appId": "org.erb.ElectronReact",
-	"win": {
-		"target": ["nsis"]
-	},
 	"linux": {
 		"target": ["deb"],
 		"category": "Development"
