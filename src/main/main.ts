@@ -15,8 +15,8 @@ const createWindow = () => {
 
 	win = new BrowserWindow({
 		show: false,
-		width: 1024,
-		height: 768,
+		width: 1280,
+		height: 720,
 		icon: getAssetPath('icon.png'),
 	})
 
@@ -27,6 +27,7 @@ const createWindow = () => {
 
 		if (process.env.START_MINIMIZED) win.minimize()
 		else win.show()
+		win.webContents.openDevTools()
 	})
 
 	win.on('closed', () => (win = null))
