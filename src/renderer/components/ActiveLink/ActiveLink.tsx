@@ -7,8 +7,8 @@ const ActiveLink: React.FC<LinkProps> = (props) => {
 	const [isActive] = useRoute(props.to!)
 
 	return (
-		<Link {...props} className={isActive ? styles.active : ''}>
-			{props.children}
+		<Link {...props}>
+			<a className={isActive ? styles.active : ''}>{props.children}</a>
 		</Link>
 	)
 }

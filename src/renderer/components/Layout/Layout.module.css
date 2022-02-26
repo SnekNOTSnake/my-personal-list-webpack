@@ -4,7 +4,7 @@
 }
 
 .main {
-	width: 100%;
+	width: calc(100% - 50px);
 	background-color: #25292d;
 	color: #fff;
 	padding: 40px 72px;

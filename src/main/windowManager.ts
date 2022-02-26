@@ -18,6 +18,9 @@ export const createMainWindow = () => {
 		width: 1280,
 		height: 720,
 		icon: getAssetPath('icon.png'),
+		webPreferences: {
+			preload: path.resolve(__dirname, '../common/preload.js'),
+		},
 	})
 
 	win.loadURL(resolveHtmlPath('index.html'))

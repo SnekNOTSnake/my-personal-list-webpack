@@ -2,37 +2,32 @@ import React from 'react'
 import {
 	MdOutlineSpaceDashboard,
 	MdOutlineExplore,
-	MdOutlineSettings,
+	MdOutlineAccountCircle,
 } from 'react-icons/md'
 
-import Search from '../Search/Search'
 import ActiveLink from '../ActiveLink'
 import styles from './Navigation.module.css'
 
 const Navigation: React.FC = () => {
 	return (
 		<div className={styles.root}>
-			<h2>My Personal List</h2>
-
 			<ul>
 				<li>
 					<ActiveLink to='/'>
-						<MdOutlineSpaceDashboard className={styles.icon} /> Home
+						<MdOutlineSpaceDashboard className={styles.icon} />
 					</ActiveLink>
 				</li>
 				<li>
 					<ActiveLink to='/explore'>
-						<MdOutlineExplore className={styles.icon} /> Explore
+						<MdOutlineExplore className={styles.icon} />
 					</ActiveLink>
 				</li>
 			</ul>
 
-			<Search />
-
 			<div className={styles.settings}>
-				<ActiveLink to='/settings'>
-					<MdOutlineSettings className={styles.icon} /> Settings
-				</ActiveLink>
+				<a>
+					<MdOutlineAccountCircle className={styles.icon} />
+				</a>
 			</div>
 		</div>
 	)

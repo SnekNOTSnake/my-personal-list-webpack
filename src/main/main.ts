@@ -1,8 +1,10 @@
 import { app } from 'electron'
+import { initializeIpcEvents } from './ipcEvents'
 import { createMainWindow, win } from './windowManager'
 
 app.on('ready', () => {
 	createMainWindow()
+	initializeIpcEvents()
 
 	app.on('activate', () => {
 		// On macOS it's common to re-create a window in the app when the
