@@ -1,8 +1,13 @@
 import React from 'react'
 
+import Explorer from '../../components/Explorer'
+import AnimeDetails from '../../components/AnimeDetails'
+import styles from './Explore.module.css'
+
 const Explore: React.FC = () => (
-	<div className='Explore'>
-		<h1>Explore</h1>
+	<div className={styles.root}>
+		<Explorer />
+		<AnimeDetails />
 	</div>
 )
 

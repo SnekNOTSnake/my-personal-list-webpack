@@ -3,6 +3,7 @@ import {
 	MdOutlineSpaceDashboard,
 	MdOutlineExplore,
 	MdOutlineAccountCircle,
+	MdOutlineEventNote,
 } from 'react-icons/md'
 
 import ActiveLink from '../ActiveLink'
@@ -20,6 +21,11 @@ const Navigation: React.FC = () => {
 				<li>
 					<ActiveLink to='/explore'>
 						<MdOutlineExplore className={styles.icon} />
+					</ActiveLink>
+				</li>
+				<li>
+					<ActiveLink to='/schedule'>
+						<MdOutlineEventNote className={styles.icon} />
 					</ActiveLink>
 				</li>
 			</ul>
