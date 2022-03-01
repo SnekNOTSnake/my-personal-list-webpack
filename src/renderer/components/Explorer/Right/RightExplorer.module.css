@@ -12,7 +12,6 @@
 .root {
 	display: flex;
 	flex-direction: column;
-	width: 50%;
 	background-color: #191c1f;
 	padding: 1px;
 }

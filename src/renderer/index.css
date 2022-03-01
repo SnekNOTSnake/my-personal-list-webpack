@@ -40,6 +40,17 @@ button {
 	cursor: pointer;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-track {
+	background: #25292d;
+}
+::-webkit-scrollbar-thumb {
+	background: #454c53;
+}
+
 /* clears the 'X' from Internet Explorer */
 input[type='search']::-ms-clear {
 	display: none;

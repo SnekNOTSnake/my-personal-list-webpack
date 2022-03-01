@@ -18,6 +18,7 @@ export const createMainWindow = () => {
 		width: 1280,
 		height: 720,
 		icon: getAssetPath('icon.png'),
+		autoHideMenuBar: true,
 		webPreferences: {
 			preload: path.resolve(__dirname, '../common/preload.js'),
 		},
@@ -30,7 +31,6 @@ export const createMainWindow = () => {
 
 		if (process.env.START_MINIMIZED) win.minimize()
 		else win.show()
-		win.webContents.openDevTools()
 	})
 
 	win.on('closed', () => (win = null))

@@ -1,16 +1,26 @@
 .root {
-	display: flex;
-	flex-direction: column;
+	position: relative;
 	width: 50px;
+	min-height: 100vh;
 }
 
-.root h2 {
+.root .menu {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	width: 50px;
+	top: 0;
+	left: 0;
+	bottom: 0;
+}
+
+.root .menu h2 {
 	margin: 0;
 	color: #333;
 	font-weight: normal;
 }
 
-a {
+.root .menu a {
 	display: block;
 	position: relative;
 	width: 100%;
@@ -19,12 +29,7 @@ a {
 	color: #333;
 }
 
-a.active {
-	background-color: #2f80ed;
-	color: #fff;
-}
-
-.icon {
+.root .menu .icon {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -32,6 +37,6 @@ a.active {
 	font-size: 1.5em;
 }
 
-.settings {
+.root .menu .settings {
 	margin-top: auto;
 }
