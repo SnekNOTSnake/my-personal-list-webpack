@@ -1,32 +1,30 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import { MdSearch, MdOutlineExpandMore } from 'react-icons/md'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
+import { filteredSeries, seriesFilter } from '../../../recoil-states/series'
 import styles from './RightExplorer.module.css'
 
-const animeTitles = [
-	'Mushi-shi',
-	'Sakura-trick',
-	'Seikon no Qwaser',
-	'Kino no Tabi',
-	'Little Witch Academia',
-	'Made in Abyss',
-	'Princess Connect',
-	'Shoujo Shuumatsu Ryokou',
-	'Sora no Woto',
-	'Urasekai Picnic',
-	'Yuru Camp',
-]
-
 const RightExplorer: React.FC = () => {
-	const [search, setSearch] = useState('')
+	const series = useRecoilValue(filteredSeries)
+	const [filter, setFilter] = useRecoilState(seriesFilter)
 
-	const onSearchChange = (e: InputChange) => setSearch(e.currentTarget.value)
+	const onSearchChange = (e: InputChange) => {
+		setFilter((prevVal) => ({ ...prevVal, query: e.target.value }))
+	}
 
-	const titles = useMemo(() => {
-		return animeTitles.filter((title) => {
-			return title.toLowerCase().startsWith(search.toLowerCase())
-		})
-	}, [search])
+	const onOrderByChange = (e: SelectChange) => {
+		setFilter((prevVal) => ({
+			...prevVal,
+			order: { ...prevVal.order, by: e.target.value as any },
+		}))
+	}
+
+	const onAscDescClick = () =>
+		setFilter((prevVal) => ({
+			...prevVal,
+			order: { ...prevVal.order, descending: !prevVal.order.descending },
+		}))
 
 	return (
 		<div className={styles.root}>
@@ -34,25 +32,34 @@ const RightExplorer: React.FC = () => {
 				<input
 					type='search'
 					placeholder='Search'
-					value={search}
+					value={filter.query}
 					onChange={onSearchChange}
 				/>
 				<MdSearch className={styles.icon} />
 			</div>
 			<div className={styles.order}>
-				Title
-				<MdOutlineExpandMore className={styles.icon} />
+				<select value={filter.order.by} onChange={onOrderByChange}>
+					<option value='title'>Title</option>
+					<option value='duration'>Duration</option>
+					<option value='resolution'>Resolution</option>
+					<option value='epsNum'>Number of Episodes</option>
+				</select>
+				<MdOutlineExpandMore
+					onClick={onAscDescClick}
+					className={[
+						styles.icon,
+						...[filter.order.descending ? styles.descending : ''],
+					].join(' ')}
+				/>
 			</div>
 			<div className={styles.titles}>
 				<ul>
-					{titles.map((title, i) => (
-						<li key={i} className={i === 1 ? styles.active : ''}>
-							{title}
-						</li>
+					{series.map((el) => (
+						<li key={el.id}>{el.title}</li>
 					))}
 				</ul>
 			</div>
-			<div className={styles.matches}>{titles.length} Items</div>
+			<div className={styles.matches}>{series.length} Items</div>
 		</div>
 	)
 }

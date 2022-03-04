@@ -10,6 +10,7 @@
 		"moduleResolution": "Node",
 		"esModuleInterop": true,
 		"allowJs": true,
+		"resolveJsonModule": true,
 		"outDir": "release/app/dist"
 	},
 	"exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]

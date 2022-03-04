@@ -1,46 +1,37 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
+import { seriesFilter, seriesTags } from '../../../recoil-states/series'
 import styles from './LeftExplorer.module.css'
 
-const initGenres: { name: string; status: 'active' | 'disabled' | null }[] = [
-	{ name: 'Action', status: null },
-	{ name: 'Adventure', status: 'active' },
-	{ name: 'Drama', status: null },
-	{ name: 'Romance', status: 'disabled' },
-	{ name: 'Slice of life', status: null },
-	{ name: 'Supernatural', status: null },
-	{ name: 'Untagged', status: null },
-]
-
 const LeftExplorer: React.FC = () => {
-	const [genres, setGenres] = useState(initGenres)
+	const tags = useRecoilValue(seriesTags)
+	const [filter, setFilter] = useRecoilState(seriesFilter)
 
-	const onClearClick = () => {
-		const cloneGenres = [...genres]
-		const newGenres = cloneGenres.map((genre) => {
-			genre.status = null
-			return genre
+	const onClearClick = () =>
+		setFilter((prev) => ({ ...prev, tags: { active: [], deactive: [] } }))
+
+	const onTagClick = (tag: string) =>
+		setFilter((prev) => {
+			const aIndex = prev.tags.active.indexOf(tag)
+			const dIndex = prev.tags.deactive.indexOf(tag)
+			const newTags = {
+				active: [...prev.tags.active],
+				deactive: [...prev.tags.deactive],
+			}
+
+			if (aIndex >= 0) {
+				newTags.active.splice(aIndex, 1)
+				newTags.deactive.push(tag)
+			} else if (dIndex >= 0) {
+				newTags.deactive.splice(dIndex, 1)
+			} else {
+				newTags.active.push(tag)
+			}
+
+			return { ...prev, tags: newTags }
 		})
-
-		setGenres(newGenres)
-	}
-
-	const onGenreClick = (genre: string) => {
-		const newGenres = [...genres]
-
-		const genreObj = newGenres.find((el) => el.name === genre)
-		if (!genreObj) return
-
-		genreObj.status =
-			genreObj.status === 'active'
-				? 'disabled'
-				: genreObj.status === 'disabled'
-				? null
-				: 'active'
-
-		setGenres(newGenres)
-	}
 
 	return (
 		<div className={styles.left}>
@@ -51,19 +42,20 @@ const LeftExplorer: React.FC = () => {
 			</div>
 			<div className={styles.genres}>
 				<ul>
-					{genres.map((genre) => (
+					{tags.map((tag) => (
 						<li
-							key={genre.name}
 							className={
-								genre.status === 'active'
+								filter.tags.active.includes(tag.name)
 									? styles.active
-									: genre.status === 'disabled'
+									: filter.tags.deactive.includes(tag.name)
 									? styles.disabled
 									: ''
 							}
-							onClick={() => onGenreClick(genre.name)}
+							onClick={() => onTagClick(tag.name)}
+							key={tag.name}
 						>
-							{genre.name} <div className={styles.grow} /> <span>24</span>
+							{tag.name} <div className={styles.grow} />{' '}
+							<span>{tag.count}</span>
 						</li>
 					))}
 				</ul>

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { RecoilRoot } from 'recoil'
 
 import App from './pages/App'
 import { initializeSettings } from './util/settings'
@@ -10,7 +11,9 @@ initializeSettings()
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<RecoilRoot>
+			<App />
+		</RecoilRoot>
 	</React.StrictMode>,
 	document.querySelector('#root'),
 )

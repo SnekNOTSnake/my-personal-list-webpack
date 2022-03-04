@@ -46,6 +46,10 @@
 	color: rgba(255, 255, 255, 0.5);
 }
 
+.root .descending {
+	transform: translateY(-50%) rotate(180deg);
+}
+
 .root .titles {
 	margin-bottom: 1px;
 	overflow-y: auto;
