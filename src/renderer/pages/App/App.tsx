@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'wouter'
+import { Routes, Route } from 'react-router-dom'
 
 import Layout from '../../components/Layout'
 import Home from '../Home'
@@ -7,10 +7,10 @@ import Explore from '../Explore'
 
 const App: React.FC = () => (
 	<Layout>
-		<Switch>
-			<Route path='/' component={Home} />
-			<Route path='/explore' component={Explore} />
-		</Switch>
+		<Routes>
+			<Route path='/' element={<Home />} />
+			<Route path='/explore' element={<Explore />} />
+		</Routes>
 	</Layout>
 )
 

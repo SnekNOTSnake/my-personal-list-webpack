@@ -29,6 +29,11 @@
 	color: #333;
 }
 
+.root .menu a.active {
+	color: #fff;
+	background-color: #2f80ed;
+}
+
 .root .menu .icon {
 	position: absolute;
 	top: 50%;

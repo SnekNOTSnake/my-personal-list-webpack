@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import {
 	MdOutlineSpaceDashboard,
 	MdOutlineExplore,
@@ -6,7 +7,6 @@ import {
 	MdOutlineEventNote,
 } from 'react-icons/md'
 
-import ActiveLink from '../ActiveLink'
 import styles from './Navigation.module.css'
 
 const Navigation: React.FC = () => {
@@ -15,19 +15,28 @@ const Navigation: React.FC = () => {
 			<div className={styles.menu}>
 				<ul>
 					<li>
-						<ActiveLink to='/'>
+						<NavLink
+							className={({ isActive }) => (isActive ? styles.active : '')}
+							to='/'
+						>
 							<MdOutlineSpaceDashboard className={styles.icon} />
-						</ActiveLink>
+						</NavLink>
 					</li>
 					<li>
-						<ActiveLink to='/explore'>
+						<NavLink
+							className={({ isActive }) => (isActive ? styles.active : '')}
+							to='/explore'
+						>
 							<MdOutlineExplore className={styles.icon} />
-						</ActiveLink>
+						</NavLink>
 					</li>
 					<li>
-						<ActiveLink to='/schedule'>
+						<NavLink
+							className={({ isActive }) => (isActive ? styles.active : '')}
+							to='/schedule'
+						>
 							<MdOutlineEventNote className={styles.icon} />
-						</ActiveLink>
+						</NavLink>
 					</li>
 				</ul>
 
