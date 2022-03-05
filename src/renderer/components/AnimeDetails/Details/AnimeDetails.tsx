@@ -7,6 +7,7 @@ import {
 	MdOutlineExpandMore,
 } from 'react-icons/md'
 import { useSetRecoilState } from 'recoil'
+import { Link } from 'react-router-dom'
 
 import { seriesFilter } from 'renderer/recoil-states/series'
 import styles from './AnimeDetails.module.css'
@@ -113,7 +114,9 @@ const AnimeDetails: React.FC<Props> = ({ edit, data }) => {
 					<ul>
 						{data.related.map((series) => (
 							<li key={series.id}>
-								{series.type}: {series.id}
+								<Link to={`/explore/${series.id}`}>
+									{series.type}: {series.id.replace(/-/gi, ' ')}
+								</Link>
 							</li>
 						))}
 					</ul>

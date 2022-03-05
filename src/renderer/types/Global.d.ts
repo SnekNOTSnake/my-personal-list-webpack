@@ -11,7 +11,18 @@ interface Settings {
 	dataDir: string | null
 }
 
-interface Series {
+interface Metadata {
+	encoder: string
+	source: string
+	quality: 'bd' | 'dvd' | 'web'
+	res: number
+	duration: number
+	video: string
+	audio: string
+	subtitle: string
+}
+
+interface Series extends Metadata {
 	id: string
 	title: string
 	tags: string[]
@@ -19,14 +30,6 @@ interface Series {
 	epsWatched: number
 	rewatchCount: number
 	suspended: boolean
-	encoder: string
-	source: string
-	quality: 'bd' | 'dvd' | 'web'
-	res: number
-	video: string
-	audio: string
-	subtitle: string
-	duration: number
 	notes: string
 	related: Relation[]
 }

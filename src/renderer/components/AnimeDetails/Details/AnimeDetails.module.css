@@ -159,10 +159,15 @@
 
 .root .related .titles li {
 	margin-bottom: 8px;
+	text-transform: capitalize;
 }
 
 .root .related .titles li:last-child {
 	margin-bottom: 0;
+}
+
+.root .related .titles li a:hover {
+	text-decoration: underline;
 }
 
 .root .related.active .titles {
