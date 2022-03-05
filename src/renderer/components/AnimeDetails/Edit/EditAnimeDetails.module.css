@@ -82,20 +82,38 @@ textarea {
 }
 
 .root .tags li {
+	cursor: pointer;
+	user-select: none;
+	position: relative;
 	display: inline-block;
 	background-color: #fff;
 	color: #333;
 	border-radius: 4px;
 	padding: 2px 16px;
-	text-transform: capitalize;
 	margin-right: 8px;
+}
+
+.root .tags li::before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+}
+
+.root .tags li:hover::before {
+	background-color: rgba(0, 0, 0, 0.15);
 }
 
 .root .relations .relationInput {
 	display: flex;
+	position: relative;
 }
 
-.root .relations .relationType {
+.root .relations .relationInput .relationType {
 	display: flex;
 	background-color: rgba(255, 255, 255, 0.05);
 	border: 1px solid rgba(255, 255, 255, 0.15);
@@ -105,16 +123,58 @@ textarea {
 	margin-left: 8px;
 }
 
+.root .relations .relationInput .seriesPopover {
+	position: absolute;
+	z-index: 10;
+	top: 50px;
+	left: 0;
+	min-width: 350px;
+	min-height: 100px;
+	background-color: #303337;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	display: none;
+	border-radius: 4px;
+	padding: 8px 0;
+	user-select: none;
+}
+
+.root .relations .relationInput:focus-within .seriesPopover {
+	display: block;
+}
+
+.root .relations .relationInput .seriesPopover li {
+	padding: 4px 16px;
+	cursor: pointer;
+	position: relative;
+}
+
+.root .relations .relationInput .seriesPopover li::before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+}
+
+.root .relations .relationInput .seriesPopover li:hover::before {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
 .root .relations input {
 	width: calc(33% - 8px);
 }
 
-.root .relations ul {
+.root .relations ul.titles {
 	margin-top: 12px;
 }
 
-.root .relations li > div {
+.root .relations .titles li > div {
+	position: relative;
 	display: inline-flex;
+	cursor: pointer;
 	background-color: rgba(255, 255, 255, 0.05);
 	border-radius: 4px;
 	text-transform: capitalize;
@@ -122,19 +182,34 @@ textarea {
 	color: #fff;
 }
 
-.root .relations li .relatedType {
+.root .relations .titles li > div::before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: transparent;
+}
+
+.root .relations .titles li > div:hover::before {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+.root .relations .titles li .relatedType {
 	background-color: rgba(255, 255, 255, 0.05);
 	border-radius: 4px;
 	padding: 8px 16px;
 }
 
-.root .relations li .relatedType {
+.root .relations .titles li .relatedType {
 	background-color: rgba(255, 255, 255, 0.05);
 	border-radius: 4px;
 	padding: 8px 16px;
 }
 
-.root .relations li .relatedName {
+.root .relations .titles li .relatedName {
 	padding: 8px 16px;
 }
 

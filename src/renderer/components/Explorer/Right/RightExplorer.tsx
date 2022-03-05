@@ -1,6 +1,7 @@
 import React from 'react'
 import { MdSearch, MdOutlineExpandMore } from 'react-icons/md'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import { NavLink } from 'react-router-dom'
 
 import { filteredSeries, seriesFilter } from '../../../recoil-states/series'
 import styles from './RightExplorer.module.css'
@@ -55,7 +56,14 @@ const RightExplorer: React.FC = () => {
 			<div className={styles.titles}>
 				<ul>
 					{series.map((el) => (
-						<li key={el.id}>{el.title}</li>
+						<li key={el.id}>
+							<NavLink
+								className={({ isActive }) => (isActive ? styles.active : '')}
+								to={`/explore/${el.id}`}
+							>
+								{el.title}
+							</NavLink>
+						</li>
 					))}
 				</ul>
 			</div>

@@ -11,7 +11,8 @@
 		"esModuleInterop": true,
 		"allowJs": true,
 		"resolveJsonModule": true,
-		"outDir": "release/app/dist"
+		"outDir": "release/app/dist",
+		"baseUrl": "./src"
 	},
 	"exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
 }

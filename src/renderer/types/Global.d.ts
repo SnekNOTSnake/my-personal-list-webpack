@@ -3,6 +3,7 @@ declare module '*.module.css'
 type InputChange = React.ChangeEvent<HTMLInputElement>
 type TextAreaChange = React.ChangeEvent<HTMLTextAreaElement>
 type SelectChange = React.ChangeEvent<HTMLSelectElement>
+type InputKeyPress = React.KeyboardEvent<HTMLInputElement>
 type FormSubmit = React.FormEvent<HTMLFormElement>
 
 interface Settings {

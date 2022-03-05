@@ -19,6 +19,7 @@ const rendererConfigProd: Configuration = {
 	output: {
 		path: distRendererPath,
 		filename: 'renderer.js',
+		publicPath: '/',
 	},
 	optimization: {
 		minimize: true,

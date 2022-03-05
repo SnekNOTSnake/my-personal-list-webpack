@@ -37,6 +37,21 @@
 	background-color: transparent;
 }
 
+.left li::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: transparent;
+}
+
+.left li:hover::after {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
 .left li.active {
 	background-color: rgba(33, 150, 83, 0.15);
 }
@@ -74,6 +89,7 @@
 	background-color: transparent;
 	border: none;
 	padding: 0;
+	border-radius: 4;
 }
 
 .left .genres {

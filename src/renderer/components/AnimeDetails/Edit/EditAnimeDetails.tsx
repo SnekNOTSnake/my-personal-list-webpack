@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import { useMemo } from 'react'
+import { useRecoilState } from 'recoil'
+import { seriesState } from 'renderer/recoil-states/series'
 
 import styles from './EditAnimeDetails.module.css'
 
-type Props = { closeEdit: () => any; data: any }
+type Props = { closeEdit: () => any; data: Series }
 
 const EditAnimeDetails: React.FC<Props> = ({ closeEdit, data }) => {
-	const [input, setInput] = useState({
+	const defaultInputs = {
 		title: data.title,
 		epsNum: data.epsNum,
 		epsWatched: data.epsWatched,
@@ -18,10 +21,36 @@ const EditAnimeDetails: React.FC<Props> = ({ closeEdit, data }) => {
 		video: data.video,
 		audio: data.audio,
 		subtitle: data.subtitle,
-		container: data.container,
 		notes: data.notes,
 		tags: data.tags,
-	})
+		related: data.related,
+	}
+
+	const [series, setSeries] = useRecoilState(seriesState)
+	const [input, setInput] = useState(defaultInputs)
+
+	const [tagInput, setTagInput] = useState('')
+	const onTagChange = (e: InputChange) => setTagInput(e.target.value)
+
+	const [relatedInput, setRelatedInput] = useState('')
+	const onRelatedChange = (e: InputChange) => setRelatedInput(e.target.value)
+
+	const [relatedType, setRelatedType] = useState('sequel')
+	const onRelTypeChange = (e: SelectChange) => setRelatedType(e.target.value)
+
+	const localFilteredSeries = useMemo(() => {
+		const filtered = series.filter((el) => {
+			if (el.id === data.id) return false
+			if (input.related.some((relatedAnime) => relatedAnime.id === el.id))
+				return false
+			return el.title.toLowerCase().startsWith(relatedInput.toLowerCase())
+		})
+
+		filtered.sort((a, b) => a.title.localeCompare(b.title))
+		filtered.slice(0, 10)
+
+		return filtered
+	}, [series, relatedInput, input.related])
 
 	const onInputChange = (e: InputChange | TextAreaChange) => {
 		setInput((initVal) => {
@@ -34,8 +63,63 @@ const EditAnimeDetails: React.FC<Props> = ({ closeEdit, data }) => {
 
 	const onSubmit = (e: FormSubmit) => {
 		e.preventDefault()
-		console.log(input)
+
+		setSeries((prevVal) => {
+			const index = prevVal.findIndex((el) => el.id === data.id)
+			const newSeriesArr = [...prevVal]
+			newSeriesArr.splice(index, 1, { ...prevVal[index], ...input })
+			return newSeriesArr
+		})
+
+		closeEdit()
 	}
+
+	const onResetForm = () => setInput(defaultInputs)
+
+	const onTagSubmit = (e: InputKeyPress) => {
+		if (e.key === 'Enter') {
+			e.preventDefault()
+
+			const newTag = e.currentTarget.value
+			setInput((prevVal) => {
+				if (prevVal.tags.includes(newTag)) return prevVal
+				return { ...prevVal, tags: [...prevVal.tags, newTag] }
+			})
+
+			setTagInput('')
+		}
+	}
+
+	const onTagRemove = (tag: string) => {
+		setInput((prevVal) => {
+			const index = prevVal.tags.findIndex((el) => el === tag)
+			if (index < 0) return prevVal
+
+			const newTags = [...prevVal.tags]
+			newTags.splice(index, 1)
+
+			return { ...prevVal, tags: newTags }
+		})
+	}
+
+	const onAddRelation = (id: string) => {
+		setInput((prevVal) => ({
+			...prevVal,
+			related: [...prevVal.related, { id, type: relatedType as any }],
+		}))
+
+		window.blur()
+	}
+
+	const onRemoveRelation = (id: string) =>
+		setInput((prevVal) => {
+			const index = prevVal.related.findIndex((el) => el.id === id)
+			if (index < 0) return prevVal
+
+			const newRelations = [...prevVal.related]
+			newRelations.splice(index, 1)
+			return { ...prevVal, related: newRelations }
+		})
 
 	return (
 		<div className={styles.root}>
@@ -169,10 +253,17 @@ const EditAnimeDetails: React.FC<Props> = ({ closeEdit, data }) => {
 
 				<div className={[styles.labeledInput, styles.tags].join(' ')}>
 					<div className={styles.label}>Add tags</div>
-					<input type='text' />
+					<input
+						type='text'
+						onKeyPress={onTagSubmit}
+						value={tagInput}
+						onChange={onTagChange}
+					/>
 					<ul>
-						{input.tags.map((tag: any) => (
-							<li key={tag}>{tag}</li>
+						{input.tags.map((tag) => (
+							<li key={tag} onClick={() => onTagRemove(tag)}>
+								{tag}
+							</li>
 						))}
 					</ul>
 				</div>
@@ -184,15 +275,41 @@ const EditAnimeDetails: React.FC<Props> = ({ closeEdit, data }) => {
 				<div className={[styles.labeledInput, styles.relations].join(' ')}>
 					<div className={styles.label}>Add relations</div>
 					<div className={styles.relationInput}>
-						<input type='text' />
-						<div className={styles.relationType}>Sequel</div>
+						<input
+							value={relatedInput}
+							onChange={onRelatedChange}
+							type='text'
+						/>
+						<div className={styles.relationType}>
+							<select onChange={onRelTypeChange}>
+								<option value='sequel'>Sequel</option>
+								<option value='prequel'>Prequel</option>
+								<option value='side-story'>Side Story</option>
+								<option value='spin-off'>Spin Off</option>
+								<option value='parent'>Parent</option>
+								<option value='summary'>Summary</option>
+								<option value='alternative-version'>Alternative Version</option>
+							</select>
+						</div>
+						<div
+							tabIndex={0 /* Allow div focus */}
+							className={styles.seriesPopover}
+						>
+							<ul>
+								{localFilteredSeries.map((el) => (
+									<li onClick={() => onAddRelation(el.id)} key={el.id}>
+										{el.title}
+									</li>
+								))}
+							</ul>
+						</div>
 					</div>
-					<ul>
-						{data.relatedAnime.map((anime: any) => (
-							<li key={anime.id}>
-								<div>
-									<div className={styles.relatedType}>{anime.type}</div>
-									<div className={styles.relatedName}>{anime.id}</div>
+					<ul className={styles.titles}>
+						{input.related.map((series) => (
+							<li key={series.id}>
+								<div onClick={() => onRemoveRelation(series.id)}>
+									<div className={styles.relatedType}>{series.type}</div>
+									<div className={styles.relatedName}>{series.id}</div>
 								</div>
 							</li>
 						))}
@@ -202,6 +319,9 @@ const EditAnimeDetails: React.FC<Props> = ({ closeEdit, data }) => {
 				<div>
 					<button className={styles.save} type='submit'>
 						Save
+					</button>
+					<button type='button' onClick={onResetForm}>
+						Reset
 					</button>
 					<button type='button' onClick={closeEdit}>
 						Cancel

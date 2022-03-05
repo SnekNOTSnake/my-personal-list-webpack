@@ -1,6 +1,7 @@
 import path from 'path'
 import { spawn } from 'child_process'
 import { Configuration } from 'webpack'
+import _ from 'webpack-dev-server'
 import { merge } from 'webpack-merge'
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
@@ -17,6 +18,7 @@ const rendererConfigDev: Configuration = {
 	output: {
 		path: distRendererPath,
 		filename: 'renderer.dev.js',
+		publicPath: '/',
 	},
 	devServer: {
 		port: PORT,
